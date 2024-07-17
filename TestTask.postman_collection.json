@@ -1,0 +1,127 @@
+{
+	"info": {
+		"_postman_id": "4fcb59ab-325d-4216-bdc7-ff053b15a8e5",
+		"name": "TestTask",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "28287947"
+	},
+	"item": [
+		{
+			"name": "AddProject",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Simple project\",\r\n    \"description\": \"project description\",\r\n    \"startDate\": \"2023-07-01\",\r\n    \"endDate\": \"2023-12-31\",\r\n    \"status\": \"PLANNED\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/project"
+			},
+			"response": []
+		},
+		{
+			"name": "AddTask",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"Simple title\",\r\n    \"description\":\"description\",\r\n    \"assignedTo\":\"someboby\",\r\n    \"projectId\":1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/task"
+			},
+			"response": []
+		},
+		{
+			"name": "ListProject",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/api/project"
+			},
+			"response": []
+		},
+		{
+			"name": "Listtask",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/api/task"
+			},
+			"response": []
+		},
+		{
+			"name": "FirstTask",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/api/task/1"
+			},
+			"response": []
+		},
+		{
+			"name": "FirstProject",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/api/project/1"
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateTask",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"Simple update title\",\r\n    \"description\":\"update description\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/task/1"
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateProject",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Simple update project\",\r\n    \"description\": \"update project description\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/project/1"
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteProject",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "localhost:8080/api/project/1"
+			},
+			"response": []
+		}
+	]
+}
