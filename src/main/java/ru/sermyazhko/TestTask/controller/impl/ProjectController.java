@@ -18,18 +18,18 @@ public class ProjectController implements BaseController<ProjectDTO, Long> {
     private final ProjectService service;
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProjectDTO> read(@PathVariable("id") Long id) {
+    public ResponseEntity<?> read(@PathVariable("id") Long id) {
         try {
             return ResponseEntity.ok(service.readEntityById(id));
         } catch (EntityNotFound e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project with ID " + id + " not found");
         }
     }
 
     @GetMapping
-    public ResponseEntity<List<ProjectDTO>> readAll() {
+    public ResponseEntity<?> readAll() {
         List<ProjectDTO> projectDTOList = service.readAllEntity();
-        if (projectDTOList.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        if (projectDTOList.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Empty list");
         else return ResponseEntity.ok(projectDTOList);
     }
 
@@ -39,11 +39,11 @@ public class ProjectController implements BaseController<ProjectDTO, Long> {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> update(@RequestBody ProjectDTO updateEntity, @PathVariable("id") Long id) {
+    public ResponseEntity<?> update(@RequestBody ProjectDTO updateEntity, @PathVariable("id") Long id) {
         try {
             return ResponseEntity.ok(service.updateEntityById(updateEntity, id));
         } catch (EntityNotFound e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project with ID " + id + " not found");
         }
     }
 
@@ -51,6 +51,6 @@ public class ProjectController implements BaseController<ProjectDTO, Long> {
     public ResponseEntity<Boolean> delete(@PathVariable("id") Long id) {
         Boolean delete = service.deleteEntityById(id);
         if (delete) return ResponseEntity.status(HttpStatus.NO_CONTENT).body(true);
-        else return ResponseEntity.status(HttpStatus.NO_CONTENT).body(false);
+        else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(false);
     }
 }

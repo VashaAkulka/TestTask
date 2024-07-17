@@ -18,36 +18,36 @@ public class TaskController implements BaseController<TaskDTO, Long> {
     private final TaskService service;
 
     @GetMapping("/{id}")
-    public ResponseEntity<TaskDTO> read(@PathVariable("id") Long id) {
+    public ResponseEntity<?> read(@PathVariable("id") Long id) {
         try {
             return ResponseEntity.ok(service.readEntityById(id));
         } catch (EntityNotFound e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task with ID " + id + " not found");
         }
     }
 
     @GetMapping
-    public ResponseEntity<List<TaskDTO>> readAll() {
+    public ResponseEntity<?> readAll() {
         List<TaskDTO> taskDTOList = service.readAllEntity();
-        if (taskDTOList.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        if (taskDTOList.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Empty list");
         else return ResponseEntity.ok(taskDTOList);
     }
 
     @PostMapping
-    public ResponseEntity<Long> add(@RequestBody TaskDTO entity) {
+    public ResponseEntity<?> add(@RequestBody TaskDTO entity) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(service.addEntity(entity));
         } catch (EntityNotFound e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project with ID " + entity.getProjectId() + " not found");
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> update(@RequestBody TaskDTO updateEntity, @PathVariable("id") Long id) {
+    public ResponseEntity<?> update(@RequestBody TaskDTO updateEntity, @PathVariable("id") Long id) {
         try {
             return ResponseEntity.ok(service.updateEntityById(updateEntity, id));
         } catch (EntityNotFound e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entity with ID " + id + " not found");
         }
     }
 
@@ -55,6 +55,6 @@ public class TaskController implements BaseController<TaskDTO, Long> {
     public ResponseEntity<Boolean> delete(@PathVariable("id") Long id) {
         Boolean delete = service.deleteEntityById(id);
         if (delete) return ResponseEntity.status(HttpStatus.NO_CONTENT).body(true);
-        else return ResponseEntity.status(HttpStatus.NO_CONTENT).body(false);
+        else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(false);
     }
 }

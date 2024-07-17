@@ -14,8 +14,6 @@ public class Task {
     private String title;
     private String description;
     private String assignedTo;
-    @Enumerated(EnumType.STRING)
-    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "project_id")
